@@ -318,3 +318,16 @@ async function predictWebcam() {
 
 // Initial call to create the hand landmarker when the script loads
 // createHandLandmarker is now called after checking for getUserMedia support
+// createHandLandmarker(); // This is now called inside the if(hasGetUserMedia()) block
+
+// Dark mode toggle logic
+const themeSwitchCheckbox = document.getElementById('theme-switch');
+const bodyElement = document.body;
+
+themeSwitchCheckbox.addEventListener('change', () => {
+    if (themeSwitchCheckbox.checked) {
+        bodyElement.classList.add('dark-mode');
+    } else {
+        bodyElement.classList.remove('dark-mode');
+    }
+});

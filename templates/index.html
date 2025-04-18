@@ -7,23 +7,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Webcam Instrument & Composer App</h1>
-<div class="container">
-    <video id="webcam" autoplay muted playsinline></video>
-    <canvas id="output_canvas"></canvas>
-</div>
-
-    <div class="controls">
-        <label for="instrument-select">Choose an instrument:</label>
-        <select id="instrument-select">
-            <option value="piano">Piano</option>
-            <option value="synthesizer">Synthesizer</option>
-        </select>
+    <div class="theme-switch">
+        <input type="checkbox" class="theme-switch__checkbox" id="theme-switch">
+        <label for="theme-switch" class="theme-switch__container">
+            <div class="theme-switch__circle-container">
+                <div class="theme-switch__sun-moon-container">
+                    <div class="theme-switch__moon">
+                        <div class="theme-switch__spot"></div>
+                        <div class="theme-switch__spot"></div>
+                        <div class="theme-switch__spot"></div>
+                    </div>
+                </div>
+            </div>
+        </label>
     </div>
+    <div class="main-content">
+        <h1>Webcam Instrument & Composer App</h1>
+        <div class="container">
+            <video id="webcam" autoplay muted playsinline></video>
+            <canvas id="output_canvas"></canvas>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script> <!-- Re-added based on example -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <div class="controls">
+            <label for="instrument-select">Choose an instrument:</label>
+            <select id="instrument-select">
+                <option value="piano">Piano</option>
+                <option value="synthesizer">Synthesizer</option>
+            </select>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script> <!-- Re-added based on example -->
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+        <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    </div>
 </body>
 </html>
