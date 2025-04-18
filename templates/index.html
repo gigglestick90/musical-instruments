@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Instrument</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Webcam Instrument & Composer App</h1>
+<div class="container">
+    <video id="webcam" autoplay muted playsinline></video>
+    <canvas id="output_canvas"></canvas>
+</div>
+
+    <div class="controls">
+        <label for="instrument-select">Choose an instrument:</label>
+        <select id="instrument-select">
+            <option value="piano">Piano</option>
+            <option value="synthesizer">Synthesizer</option>
+        </select>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
