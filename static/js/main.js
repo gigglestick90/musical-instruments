@@ -9,7 +9,8 @@ const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 // Object to hold audio buffers for different instruments
 const instrumentSounds = {
     piano: {},
-    synthesizer: {}
+    synthesizer: {},
+    drums: {}
     // Add other instruments as needed
 };
 
@@ -53,6 +54,13 @@ async function loadInstrumentSounds(instrument) {
         synthesizer: [
             { name: 'note', url: '/static/audio/synthesizer/note.wav' },
             // Add other synthesizer sounds as needed
+        ],
+        drums: [
+            { name: 'drum_a', url: '/static/audio/drums/drum-a.mp3' },
+            { name: 'drum_b', url: '/static/audio/drums/drum-b.mp3' },
+            { name: 'drum_c', url: '/static/audio/drums/drum-c.mp3' },
+            { name: 'drum_d', url: '/static/audio/drums/drum-d.mp3' },
+            { name: 'drum_e', url: '/static/audio/drums/drum-e.mp3' },
         ]
     };
 
@@ -300,6 +308,59 @@ async function predictWebcam() {
                     synthNotePlayed = true;
                 } else if (!isCurled) {
                     synthNotePlayed = false; // Reset when finger is not curled
+                }
+            } else if (currentInstrument === 'drums') {
+                // Drums: Map each finger curl to a different drum sound
+                const fingerTips = [
+                    landmarks[4], // Thumb tip
+                    landmarks[8], // Index fingertip
+                    landmarks[12], // Middle fingertip
+                    landmarks[16], // Ring fingertip
+                    landmarks[20]  // Pinky fingertip
+                ];
+                const drumSounds = ['drum_a', 'drum_b', 'drum_c', 'drum_d', 'drum_e']; // Corresponds to fingerTips index
+
+                // State to track if a drum sound has been played for each finger per hand
+                // Need to adapt this for multiple hands if necessary, for now assuming single hand logic
+                // if (!drumSoundPlayed) { // Initialize globally instead
+                //     drumSoundPlayed = [false, false, false, false, false];
+                // }
+                // Initialize drumSoundPlayed if it doesn't exist
+                if (typeof drumSoundPlayed === 'undefined') {
+                    window.drumSoundPlayed = [false, false, false, false, false];
+                }
+
+
+                for (let i = 0; i < fingerTips.length; i++) {
+                    let isCurled = false;
+                    const fingerTipLandmark = fingerTips[i]; // Get the fingertip landmark object
+                    let pipJointLandmark = null;
+
+                    if (i === 0) { // Thumb
+                        // Check for inward thumb curl: thumb tip x < thumb base x (plus tolerance)
+                        // Assuming right hand and standard orientation
+                        const thumbTip = landmarks[4];
+                        const thumbBase = landmarks[2];
+                        const curlThresholdX = 0.02; // Adjust tolerance as needed
+                        isCurled = thumbTip.x < thumbBase.x - curlThresholdX;
+                    } else { // Other fingers (Index, Middle, Ring, Pinky)
+                        // Get the PIP joint landmark using the correct original index
+                        const fingertipOriginalIndices = [4, 8, 12, 16, 20];
+                        const pipJointOriginalIndex = fingertipOriginalIndices[i] - 2;
+                        pipJointLandmark = landmarks[pipJointOriginalIndex];
+
+                        // Check if fingertip is below the PIP joint (a simple curl detection)
+                        if (fingerTipLandmark && pipJointLandmark) { // Add check for undefined landmarks
+                             isCurled = fingerTipLandmark.y > pipJointLandmark.y + 0.05; // Adjust threshold as needed
+                        }
+                    }
+
+                    if (isCurled && !drumSoundPlayed[i]) {
+                        playSound('drums', drumSounds[i]);
+                        drumSoundPlayed[i] = true;
+                    } else if (!isCurled) {
+                        drumSoundPlayed[i] = false; // Reset when finger is not curled
+                    }
                 }
             }
         }

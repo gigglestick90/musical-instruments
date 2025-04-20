@@ -81,53 +81,21 @@ To create a web application that uses a user's webcam to detect finger movements
 *   The synthesizer sound is loaded from `static/audio/synthesizer/note.wav`.
 *   The current interaction logic maps each individual finger curl (thumb to pinky) to play a different piano sound (`piano-a.wav` to `piano-e.wav` respectively) when the Piano instrument is selected. The index finger curl triggers the `note.wav` sound for the Synthesizer.
 
-**Phase 4: Composer Mode Feature**
+**Phase 4: UI/UX Polish & Refinement ("Awesome" Look)**
 
-*   `[ ]` **Task 8: Basic Song Playback**
-
-**Phase 4: Composer Mode Feature**
-
-*   `[ ]` **Task 8: Basic Song Playback**
-    *   `[ ]` Subtask 8.1: (HTML) Add a "Composer Mode" toggle button/checkbox and a "Play/Pause" button.
-    *   `[ ]` Subtask 8.2: (Assets) Add a default song file (e.g., MP3, OGG, WAV) to `static/audio/songs/`.
-    *   `[ ]` Subtask 8.3: (JS) Use the Web Audio API to load the default song into an `AudioBuffer`. [1]
-    *   `[ ]` Subtask 8.4: (JS) Implement play/pause functionality for the loaded song using an `AudioBufferSourceNode` and `AudioContext.suspend()/resume()` or by tracking playback state and creating new source nodes.
-*   `[ ]` **Task 9: Conducting Gesture Recognition**
-    *   `[ ]` Subtask 9.1: (JS) Define a conducting gesture based on MediaPipe landmarks (e.g., vertical movement speed of one hand, distance between hands, hand orientation).
-    *   `[ ]` Subtask 9.2: (JS) Calculate the chosen gesture metric in the MediaPipe processing loop when Composer Mode is active.
-*   `[ ]` **Task 10: Control Playback Speed**
-    *   `[ ]` Subtask 10.1: (JS) Map the calculated conducting gesture metric to a desired playback rate (e.g., faster movement = higher rate). Define sensible min/max rates.
-    *   `[ ]` Subtask 10.2: (JS) Use the `playbackRate` property of the `AudioBufferSourceNode` playing the song to dynamically adjust the speed based on the mapped conducting gesture. [1]
-    *   `[ ]` Subtask 10.3: Add smoothing to the playback rate changes to avoid jerky audio.
-*   `[ ]` **Task 11: Custom Song Upload**
-    *   `[ ]` Subtask 11.1: (HTML) Add an `<input type="file" accept="audio/*">` element for song uploads.
-    *   `[ ]` Subtask 11.2: (JS) Add JavaScript to handle the file selection event.
-    *   `[ ]` Subtask 11.3: (JS) Use the `fetch` API or `XMLHttpRequest` to send the selected audio file to the Flask backend.
-    *   `[ ]` Subtask 11.4: (Python/Flask) Create a new Flask route (e.g., `/upload_song`) that accepts POST requests.
-    *   `[ ]` Subtask 11.5: (Python/Flask) Implement logic to securely save the uploaded file to a designated server directory (e.g., `uploads/`). Ensure filename sanitization and potentially limit file size/types.
-    *   `[ ]` Subtask 11.6: (JS) Update the UI to allow the user to select their uploaded song for Composer Mode (e.g., add it to a list or dropdown). This might involve fetching a list of available uploaded songs from the backend or loading the uploaded file directly into the Web Audio API using `FileReader` if server-side storage isn't strictly needed for immediate playback (though upload for persistence is good).
-    *   `[ ]` Subtask 11.7: (JS) Update the song loading logic (Task 8.3) to handle loading user-uploaded songs.
-
-**Phase 5: UI/UX Polish & Refinement ("Awesome" Look)**
-
-*   `[ ]` **Task 12: Styling and Visual Feedback**
-    *   `[ ]` Subtask 12.1: (CSS) Apply consistent and appealing styling to all UI elements (buttons, dropdown, video area, canvas). Consider using a CSS framework or designing custom styles.
-    *   `[ ]` Subtask 12.2: (CSS/JS) Improve visual feedback:
+*   `[ ]` **Task 8: Styling and Visual Feedback**
+    *   `[ ]` Subtask 8.1: (CSS) Apply consistent and appealing styling to all UI elements (buttons, dropdown, video area, canvas). Consider using a CSS framework or designing custom styles.
+    *   `[ ]` Subtask 8.2: (CSS/JS) Improve visual feedback:
         *   Clearly indicate active detection areas or trigger points.
         *   Animate or highlight elements when sounds are triggered.
         *   Provide visual feedback for conducting speed in Composer Mode.
         *   Style the landmark/connection drawing on the canvas (colors, line thickness).
-    *   `[ ]` Subtask 12.3: Ensure responsive design (adapts reasonably to different screen sizes).
-*   `[ ]` **Task 13: Improve User Experience**
-    *   `[ ]` Subtask 13.1: Add clear instructions or tooltips for the user.
-    *   `[ ]` Subtask 13.2: Provide loading indicators (e.g., while audio loads).
-    *   `[ ]` Subtask 13.3: Ensure smooth transitions between modes/instruments.
-    *   `[ ]` Subtask 13.4: Optimize performance (e.g., efficient drawing, debouncing events where necessary).
-*   `[ ]` **Task 14: Testing and Debugging**
-    *   `[ ]` Subtask 14.1: Test in different browsers (Chrome, Firefox recommended).
-    *   `[ ]` Subtask 14.2: Test various webcam resolutions and lighting conditions.
-    *   `[ ]` Subtask 14.3: Debug issues with detection accuracy, audio latency, and UI glitches.
-    *   `[ ]` Subtask 14.4: Test file upload functionality thoroughly (different file types, sizes, error handling).
+    *   `[ ]` Subtask 8.3: Ensure responsive design (adapts reasonably to different screen sizes).
+*   `[ ]` **Task 9: Improve User Experience**
+    *   `[ ]` Subtask 9.1: Add clear instructions or tooltips for the user.
+    *   `[ ]` Subtask 9.2: Provide loading indicators (e.g., while audio loads).
+    *   `[ ]` Subtask 9.3: Ensure smooth transitions between modes/instruments.
+    *   `[ ]` Subtask 9.4: Optimize performance (e.g., efficient drawing, debouncing events where necessary).
 
 **5. Deployment Considerations (Future)**
 
